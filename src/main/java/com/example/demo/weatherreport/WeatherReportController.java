@@ -1,5 +1,7 @@
-package com.example.demo;
+package com.example.demo.weatherreport;
 
+import com.example.demo.weatherreport.userapi.ReportWeatherRequest;
+import com.example.demo.weatherreport.userapi.ReportWeatherResponse;
 import org.springframework.web.bind.annotation.*;
 import java.util.Random;
 
