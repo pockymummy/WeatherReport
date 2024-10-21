@@ -1,6 +1,6 @@
 package com.example.demo.weatherreport.userapi;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
-public record ReportWeatherRequest(String name, Timestamp time) {
+public record ReportWeatherRequest(String name, LocalDateTime time) {
 }

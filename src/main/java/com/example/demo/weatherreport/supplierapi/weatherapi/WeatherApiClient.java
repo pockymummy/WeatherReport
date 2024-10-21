@@ -8,9 +8,8 @@ public class WeatherApiClient {
 
     public ForecastResponse forecast(ForecastRequest request) {
         RestClient client = RestClient.create();
-        return client.post()
-                .uri("http://api.weatherapi.com/v1/forecast.json")
-                .body(request)
+        return client.get()
+                .uri("http://api.weatherapi.com/v1/forecast.json?key={key}&q={q}",request.key(),request.q())
                 .retrieve()
                 .body(ForecastResponse.class);
     } ;

@@ -5,17 +5,21 @@ import com.example.demo.weatherreport.supplierapi.weatherapi.WeatherApiMapper;
 import com.example.demo.weatherreport.supplierapi.weatherapi.forecast.request.ForecastRequest;
 import com.example.demo.weatherreport.userapi.ReportWeatherRequest;
 import com.example.demo.weatherreport.userapi.ReportWeatherResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Random;
 
 @RestController
 public class WeatherReportController {
+
+    @Autowired
+    private WeatherApiClient weatherApiClient;
+    @Autowired
+    private WeatherApiMapper weatherApiMapper;
     @GetMapping("/reportWeather")
     public ReportWeatherResponse reportWeather(@RequestBody ReportWeatherRequest request) {
         Random random = new Random();
-        WeatherApiClient weatherApiClient = new WeatherApiClient();
-        WeatherApiMapper weatherApiMapper = new WeatherApiMapper();
 
         ForecastRequest forecastRequest = weatherApiMapper.map(request);
         return  weatherApiMapper.reverseMap(weatherApiClient.forecast(forecastRequest));
