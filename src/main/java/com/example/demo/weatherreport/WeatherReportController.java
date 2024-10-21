@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Random;
 
+import static com.example.demo.DemoApplication.log;
+
 @RestController
 public class WeatherReportController {
 
@@ -18,9 +20,8 @@ public class WeatherReportController {
     @Autowired
     private WeatherApiMapper weatherApiMapper;
     @GetMapping("/reportWeather")
-    public ReportWeatherResponse reportWeather(@RequestBody ReportWeatherRequest request) {
-        Random random = new Random();
-
+    public ReportWeatherResponse reportWeather(ReportWeatherRequest request) {
+        log.info(String.valueOf(request));
         ForecastRequest forecastRequest = weatherApiMapper.map(request);
         return  weatherApiMapper.reverseMap(weatherApiClient.forecast(forecastRequest));
 //        return new ReportWeatherResponse(request.name(), request.time(), random.nextDouble());
