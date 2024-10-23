@@ -8,11 +8,18 @@ import com.example.demo.weatherreport.userapi.ReportWeatherResponse;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+import static com.example.demo.DemoApplication.log;
+
 public class WeatherApiMapper {
     public ForecastRequest map(ReportWeatherRequest reportWeatherRequest) {
-        return new ForecastRequest("8b2035a1b2344516afe11619241810", "35.696785,139.682567");
+        StringBuilder q = new StringBuilder();
+        q.append(reportWeatherRequest.lat());
+        q.append(",");
+        q.append(reportWeatherRequest.lon());
+        return new ForecastRequest("8b2035a1b2344516afe11619241810", q.toString());
     }
     public ReportWeatherResponse reverseMap(ForecastResponse forecastResponse) {
+        log.info(forecastResponse.toString());
         return new ReportWeatherResponse("", LocalDateTime.now(),10);
     }
 }

@@ -1,4 +1,6 @@
 package com.example.demo.weatherreport.supplierapi.open_meteo.forecast.response;
 
-public record Hourly() {
+import java.util.List;
+
+public record Hourly(List<String> time, List<Integer> precipitation_probability) {
 }

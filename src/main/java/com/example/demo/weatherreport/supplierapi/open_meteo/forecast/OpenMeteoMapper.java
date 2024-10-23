@@ -1,23 +1,17 @@
-package com.example.demo.weatherreport.supplierapi.weatherapi;
+package com.example.demo.weatherreport.supplierapi.open_meteo.forecast;
 
-import com.example.demo.weatherreport.supplierapi.weatherapi.forecast.request.ForecastRequest;
-import com.example.demo.weatherreport.supplierapi.weatherapi.forecast.response.ForecastResponse;
+import com.example.demo.weatherreport.supplierapi.open_meteo.forecast.request.ForecastRequest;
+import com.example.demo.weatherreport.supplierapi.open_meteo.forecast.response.ForecastResponse;
 import com.example.demo.weatherreport.userapi.ReportWeatherRequest;
 import com.example.demo.weatherreport.userapi.ReportWeatherResponse;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-import static com.example.demo.DemoApplication.log;
-
-public class WeatherApiMapper {
+public class OpenMeteoMapper {
     public ForecastRequest map(ReportWeatherRequest reportWeatherRequest) {
-        StringBuilder q = new StringBuilder();
-        q.append(reportWeatherRequest.lat());
-        q.append(",");
-        q.append(reportWeatherRequest.lon());
-        log.info(q.toString());
-        return new ForecastRequest("8b2035a1b2344516afe11619241810", q.toString());
+        String dateText = reportWeatherRequest.time().format(DateTimeFormatter.ISO_LOCAL_DATE);
+        return new ForecastRequest(reportWeatherRequest.lat(),reportWeatherRequest.lon(),"precipitation_probability", dateText,dateText);
     }
     public ReportWeatherResponse reverseMap(ForecastResponse forecastResponse) {
         return new ReportWeatherResponse("", LocalDateTime.now(),10);
