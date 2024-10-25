@@ -1,6 +1,6 @@
 package com.example.demo.weatherreport.supplierapi.weatherapi.forecast.response;
 
+
 import java.util.List;
 
-record Forecast(List<ForecastDay> forecastday) {
-}
+public record Forecast(List<ForecastDay> forecastday) {}

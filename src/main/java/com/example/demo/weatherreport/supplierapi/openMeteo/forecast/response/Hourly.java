@@ -1,4 +1,4 @@
-package com.example.demo.weatherreport.supplierapi.open_meteo.forecast.response;
+package com.example.demo.weatherreport.supplierapi.openMeteo.forecast.response;
 
 import java.util.List;
 

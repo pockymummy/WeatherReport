@@ -1,8 +1,7 @@
 package com.example.demo.weatherreport.supplierapi.weatherapi;
 
-import com.example.demo.weatherreport.supplierapi.ClientLoggingInterceptor;
-import com.example.demo.weatherreport.supplierapi.weatherapi.forecast.request.ForecastRequest;
-import com.example.demo.weatherreport.supplierapi.weatherapi.forecast.response.ForecastResponse;
+import com.example.demo.weatherreport.supplierapi.weatherapi.forecast.request.WeatherApiForecastRequest;
+import com.example.demo.weatherreport.supplierapi.weatherapi.forecast.response.WeatherApiForecastResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestClient;
 
@@ -15,11 +14,11 @@ public class WeatherApiClient {
     @Autowired
     private RestClient client;
 
-    public ForecastResponse forecast(ForecastRequest request) {
-        ForecastResponse response =  client.get()
-                .uri("http://api.weatherapi.com/v1/forecast.json?key={key}&q={q}",request.key(),request.q())
+    public WeatherApiForecastResponse forecast(WeatherApiForecastRequest request) {
+        WeatherApiForecastResponse response =  client.get()
+                .uri("http://api.weatherapi.com/v1/forecast.json?key={key}&q={q}&dt={dt}",request.key(),request.q(),request.dt())
                 .retrieve()
-                .body(ForecastResponse.class);
+                .body(WeatherApiForecastResponse.class);
         log.info("Response serialized: {}", Optional.ofNullable(response));
         return response;
     } ;
