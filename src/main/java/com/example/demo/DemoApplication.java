@@ -1,7 +1,7 @@
 package com.example.demo;
 import com.example.demo.weatherreport.supplierapi.ClientLoggingInterceptor;
-import com.example.demo.weatherreport.supplierapi.open_meteo.forecast.OpenMeteoClient;
-import com.example.demo.weatherreport.supplierapi.open_meteo.forecast.OpenMeteoMapper;
+import com.example.demo.weatherreport.supplierapi.openMeteo.forecast.OpenMeteoClient;
+import com.example.demo.weatherreport.supplierapi.openMeteo.forecast.OpenMeteoMapper;
 import com.example.demo.weatherreport.supplierapi.weatherapi.WeatherApiClient;
 import com.example.demo.weatherreport.supplierapi.weatherapi.WeatherApiMapper;
 import org.slf4j.Logger;
@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestClient;
 
 import java.time.LocalDateTime;
@@ -46,6 +46,11 @@ public class DemoApplication {
 //	}
 
 	@Bean
+	RestClient loggingRestClient() {
+		return RestClient.builder().requestFactory(new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory())).requestInterceptor(new ClientLoggingInterceptor()).build();
+	}
+
+
 	RestClient restClient() {
 		return RestClient.create();
 	}
